@@ -7,84 +7,20 @@ import requests
 
 def main():
     # parse arguments
-    parser = argparse.ArgumentParser(
-        description="Subscribe to all new communities on a lemmy instance!"
-    )
-    parser.add_argument(
-        "-i",
-        "--include",
-        nargs="+",
-        help="only include these instances (space separated)",
-    )
-
-    parser.add_argument(
-        "-e", "--exclude", nargs="+", help="exclude these instances (space separated)"
-    )
-    parser.add_argument(
-        "-l",
-        "--local",
-        help="local instance to subscribe to i.e. lemmy.co.uk",
-        required=True,
-    )
-    parser.add_argument(
-        "-u",
-        "--username",
-        help="username to subscribe with i.e. fed_sub_bot",
-        required=True,
-    )
-    parser.add_argument("-p", "--password", help="password for user", required=True)
-    parser.add_argument("-2", "--two-factor", help="two factor auth code for user", required=False)
-    parser.add_argument(
-        "-n",
-        "--no-pending",
-        help="skip subscribing to Pending communities",
-        action="store_true",
-    )
-    parser.add_argument(
-        "-s",
-        "--subscribe-only",
-        help="only subscribe to unsubscribed (-n) or unsubscribed/pending communities, do not scrape for and add new communities",
-        action="store_true",
-    )
-    parser.add_argument(
-        "-d",
-        "--discover-only",
-        help="only add new communities to instance list, do not subscribe",
-        action="store_true",
-    )
-    parser.add_argument(
-        "-r",
-        "--rate-limit",
-        help="if specified, will rate limit requests to LOCAL to this many per second (default: 15)",
-        type=int,
-        default=15,
-    )
-    parser.add_argument(
-        "-t",
-        "--top-communities-only",
-        help="top X communities based on active users per day (Lemmy only) (default: 10)",
-        type=int,
-        default=10,
-    )
-    parser.add_argument(
-        "-q",
-        "--top-instances-only",
-        help="top X instances based on active users per week (Lemmy only) (default: 100)",
-        type=int,
-        default=100,
-    )
-    parser.add_argument(
-        "-k",
-        "--skip-kbi",
-        help="if specified, will not discover kbin communities (will still subscribe if they are communities on instance)",
-        action="store_true",
-    )
-    parser.add_argument(
-        "-x",
-        "--unsubscribe-all",
-        help="forgo all other functions and unsubscribe the USER from all communities on instance",
-        action="store_true",
-    )
+    parser = argparse.ArgumentParser(description='Subscribe to all new communities on a lemmy instance!')
+    parser.add_argument('-i', '--include', nargs='+', help='only include these instances (space separated)')
+    parser.add_argument('-e', '--exclude', nargs='+', help='exclude these instances (space separated)')
+    parser.add_argument('-l', '--local', help='local instance to subscribe to i.e. lemmy.co.uk', required=True)
+    parser.add_argument('-u', '--username', help='username to subscribe with i.e. fed_sub_bot', required=True)
+    parser.add_argument('-p', '--password', help='password for user', required=True)
+    parser.add_argument('-2', '--two-factor', help='two factor auth code for user', required=False)
+    parser.add_argument('-n', '--no-pending', help='skip subscribing to Pending communities', action='store_true')
+    parser.add_argument('-s', '--subscribe-only', help='only subscribe to unsubscribed (-n) or unsubscribed/pending communities, do not scrape for and add new communities', action='store_true')
+    parser.add_argument('-d', '--discover-only', help='only add new communities to instance list, do not subscribe', action='store_true')
+    parser.add_argument('-r', '--rate-limit', help='if specified, will rate limit requests to LOCAL to this many per second (default: 15)', type=int, default=15)
+    parser.add_argument('-t', '--top-only', help='top X communities based on active users per day (Lemmy only) (default: 10)', type=int, default=10)
+    parser.add_argument('-k', '--skip-kbin', help='if specified, will not discover kbin communities (will still subscribe if they are communities on instance)', action='store_true')
+    parser.add_argument('-x', '--unsubscribe-all', help='forgo all other functions and unsubscribe the USER from all communities on instance', action='store_true')
     args = parser.parse_args()
 
     # define local instance, username, password and include/exclude lists
